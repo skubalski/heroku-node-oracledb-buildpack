@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # bin/detect <build-dir>
 
-if [ -e $1/package.json ] && grep -q \"oracledb\" $1/package.json
+#if [ -e $1/package.json ] && grep -q \"oracledb\" $1/package.json
+if [ -e $1/package.json ]
 then
     echo "----> node-oracledb is detected in package.json"
     exit 0
