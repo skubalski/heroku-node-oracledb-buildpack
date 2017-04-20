@@ -44,6 +44,8 @@ unzip -qq $CACHE_DIR/$SDK_FILENAME -d $ORACLE_DIR
 
 mv $ORACLE_DIR/instantclient_* $INSTANTCLIENT_DIR
 
+export LD_LIBRARY_PATH=$INSTANTCLIENT_DIR:$LD_LIBRARY_PATH
+
 export OCI_LIB_DIR=$INSTANTCLIENT_DIR
 export OCI_INC_DIR=$INSTANTCLIENT_DIR/sdk/include
 
@@ -62,11 +64,11 @@ cd $THIS_DIR
 
 indent "Saving environment setup script..."
 mkdir -p $PROFILE_D_DIR
-cat << EOF > $PROFILE_D_DIR/oracle.sh
-#!/usr/bin/env bash
-export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$HOME/.apt/lib/x86_64-linux-gnu:$HOME/vendor/oracle/instantclient"
-export OCI_LIB_DIR="$INSTANTCLIENT_DIR"
-export OCI_INC_DIR="$INSTANTCLIENT_DIR/sdk/include"
-EOF
+#cat << EOF > $PROFILE_D_DIR/oracle.sh
+##!/usr/bin/env bash
+#export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$HOME/.apt/lib/x86_64-linux-gnu:$HOME/vendor/oracle/instantclient"
+#export OCI_LIB_DIR="$INSTANTCLIENT_DIR"
+#export OCI_INC_DIR="$INSTANTCLIENT_DIR/sdk/include"
+#EOF
 
 indent "Done."
