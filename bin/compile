@@ -49,8 +49,10 @@ export LD_LIBRARY_PATH=$INSTANTCLIENT_DIR:$LD_LIBRARY_PATH
 export OCI_LIB_DIR=$INSTANTCLIENT_DIR
 export OCI_INC_DIR=$INSTANTCLIENT_DIR/sdk/include
 
-echo $OCI_LIB_DIR
-echo $OCI_INC_DIR
+indent "Exporting variables"
+echo $OCI_LIB_DIR > $ENV_DIR/OCI_LIB_DIR
+echo $OCI_INC_DIR > $ENV_DIR/OCI_INC_DIR
+echo $LD_LIBRARY_PATH > $ENV_DIR/LD_LIBRARY_PATH
 
 indent "Symlinking libclntsh.so..."
 THIS_DIR=`pwd`
