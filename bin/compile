@@ -15,12 +15,12 @@ INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient
 PROFILE_D_DIR=$BUILD_DIR/.profile.d
 
 #linux
-#BASIC_FILENAME=instantclient-basic-linux.x64-12.2.0.1.0.zip
-#SDK_FILENAME=instantclient-sdk-linux.x64-12.2.0.1.0.zip
+BASIC_FILENAME=instantclient-basic-linux.x64-12.2.0.1.0.zip
+SDK_FILENAME=instantclient-sdk-linux.x64-12.2.0.1.0.zip
 
 # macos
-BASIC_FILENAME=instantclient-basic-macos.x64-12.1.0.2.0.zip
-SDK_FILENAME=instantclient-sdk-macos.x64-12.1.0.2.0.zip
+#BASIC_FILENAME=instantclient-basic-macos.x64-12.1.0.2.0.zip
+#SDK_FILENAME=instantclient-sdk-macos.x64-12.1.0.2.0.zip
 
 MIRROR=https://sarkel.usermd.net/
 
@@ -50,8 +50,8 @@ export OCI_INC_DIR=$INSTANTCLIENT_DIR/sdk/include
 indent "Symlinking libclntsh.so..."
 THIS_DIR=`pwd`
 cd $INSTANTCLIENT_DIR
-#ln -s libclntsh.so.12.1 libclntsh.so
-ln -s libclntsh.dylib.12.1 libclntsh.dylib
+ln -s libclntsh.so.12.1 libclntsh.so
+#ln -s libclntsh.dylib.12.1 libclntsh.dylib
 cd $THIS_DIR
 
 indent "Installing node-oracledb"
