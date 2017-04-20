@@ -11,7 +11,7 @@ indent() {
 
 VENDOR_DIR=$BUILD_DIR/vendor
 ORACLE_DIR=$VENDOR_DIR/oracle
-INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient
+INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient_12_2
 PROFILE_D_DIR=$BUILD_DIR/.profile.d
 
 #linux
@@ -42,10 +42,6 @@ unzip -qq $CACHE_DIR/$BASIC_FILENAME -d $ORACLE_DIR
 indent "Extracting $SDK_FILENAME..."
 unzip -qq $CACHE_DIR/$SDK_FILENAME -d $ORACLE_DIR
 
-mv $ORACLE_DIR/instantclient_* $INSTANTCLIENT_DIR
-
-export LD_LIBRARY_PATH=$INSTANTCLIENT_DIR:$LD_LIBRARY_PATH
-
 export OCI_LIB_DIR=$INSTANTCLIENT_DIR
 export OCI_INC_DIR=$INSTANTCLIENT_DIR/sdk/include
 
@@ -66,9 +62,10 @@ indent "Saving environment setup script..."
 mkdir -p $PROFILE_D_DIR
 cat << EOF > $PROFILE_D_DIR/oracle.sh
 #!/usr/bin/env bash
-export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$HOME/.apt/lib/x86_64-linux-gnu:$INSTANTCLIENT_DIR"
-export OCI_LIB_DIR="$INSTANTCLIENT_DIR"
-export OCI_INC_DIR="$INSTANTCLIENT_DIR/sdk/include"
+ls $HOME
+export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$HOME/.apt/lib/x86_64-linux-gnu:$HOME/vendor/oracle/instantclient_12_2"
+export OCI_LIB_DIR="$HOME/vendor/oracle/instantclient_12_2"
+export OCI_INC_DIR="$HOME/vendor/oracle/instantclient_12_2/sdk/include"
 EOF
 
 indent "Done."
