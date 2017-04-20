@@ -14,9 +14,13 @@ ORACLE_DIR=$VENDOR_DIR/oracle
 INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient_12_2
 PROFILE_D_DIR=$BUILD_DIR/.profile.d
 
-#linux
-BASIC_FILENAME=instantclient-basic-linux.x64-12.2.0.1.0.zip
-SDK_FILENAME=instantclient-sdk-linux.x64-12.2.0.1.0.zip
+#linux x64
+BASIC_FILENAME=instantclient-basic-linux-12.2.0.1.0.zip
+SDK_FILENAME=instantclient-sdk-linux-12.2.0.1.0.zip
+
+#linux x64
+#BASIC_FILENAME=instantclient-basic-linux.x64-12.2.0.1.0.zip
+#SDK_FILENAME=instantclient-sdk-linux.x64-12.2.0.1.0.zip
 
 # macos
 #BASIC_FILENAME=instantclient-basic-macos.x64-12.1.0.2.0.zip
