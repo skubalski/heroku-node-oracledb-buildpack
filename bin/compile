@@ -62,7 +62,7 @@ cd $THIS_DIR
 indent "Installing node-oracledb"
 THIS_DIR=`pwd`
 cd $BUILD_DIR
-npm install oracledb
+npm install oracledb --save
 cd $THIS_DIR
 
 indent "Saving environment setup script..."
