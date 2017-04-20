@@ -6,32 +6,25 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 indent() {
-    echo "----> $*" || true
+    echo "       $*" || true
 }
 
 VENDOR_DIR=$BUILD_DIR/vendor
 ORACLE_DIR=$VENDOR_DIR/oracle
-INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient
+INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient_12_2
 PROFILE_D_DIR=$BUILD_DIR/.profile.d
 
-#linux
 BASIC_FILENAME=instantclient-basic-linux.x64-12.2.0.1.0.zip
 SDK_FILENAME=instantclient-sdk-linux.x64-12.2.0.1.0.zip
 
-# macos
-#BASIC_FILENAME=instantclient-basic-macos.x64-12.1.0.2.0.zip
-#SDK_FILENAME=instantclient-sdk-macos.x64-12.1.0.2.0.zip
-
 MIRROR=https://sarkel.usermd.net/
 
-if [ ! -e $CACHE_DIR/$BASIC_FILENAME ]
-then
+if [ ! -f $CACHE_DIR/$BASIC_FILENAME ]; then
     indent "Downloading $BASIC_FILENAME..."
     curl -# -o $CACHE_DIR/$BASIC_FILENAME $MIRROR/$BASIC_FILENAME
 fi
 
-if [ ! -e $CACHE_DIR/$SDK_FILENAME ]
-then
+if [ ! -f $CACHE_DIR/$SDK_FILENAME ]; then
     indent "Downloading $SDK_FILENAME..."
     curl -# -o $CACHE_DIR/$SDK_FILENAME $MIRROR/$SDK_FILENAME
 fi
@@ -42,31 +35,23 @@ unzip -qq $CACHE_DIR/$BASIC_FILENAME -d $ORACLE_DIR
 indent "Extracting $SDK_FILENAME..."
 unzip -qq $CACHE_DIR/$SDK_FILENAME -d $ORACLE_DIR
 
-mv $ORACLE_DIR/instantclient_* $INSTANTCLIENT_DIR
-
-export LD_LIBRARY_PATH=$INSTANTCLIENT_DIR:$LD_LIBRARY_PATH
+indent "Symlinking libclntsh.so..."
+ln -s libclntsh.so.12.2 $INSTANTCLIENT_DIR/libclntsh.so
 
 export OCI_LIB_DIR=$INSTANTCLIENT_DIR
 export OCI_INC_DIR=$INSTANTCLIENT_DIR/sdk/include
 
-indent "Exporting variables"
-echo $OCI_LIB_DIR > $ENV_DIR/OCI_LIB_DIR
-echo $OCI_INC_DIR > $ENV_DIR/OCI_INC_DIR
-echo $LD_LIBRARY_PATH > $ENV_DIR/LD_LIBRARY_PATH
-
-indent "Symlinking libclntsh.so..."
-THIS_DIR=`pwd`
-cd $INSTANTCLIENT_DIR
-ln -s libclntsh.so.12.1 libclntsh.so
-#ln -s libclntsh.dylib.12.1 libclntsh.dylib
-cd $THIS_DIR
-
-indent "Installing node-oracledb"
+indent "Installing oracledb from npm..."
 THIS_DIR=`pwd`
 cd $BUILD_DIR
-npm install oracledb --save
+npm install oracledb
 cd $THIS_DIR
 
 indent "Saving environment setup script..."
 mkdir -p $PROFILE_D_DIR
 cat << EOF > $PROFILE_D_DIR/oracle.sh
+#!/usr/bin/env bash
+export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:$HOME/.apt/lib/x86_64-linux-gnu:$HOME/vendor/oracle/instantclient_12_1"
+EOF
+
+indent "Done."
