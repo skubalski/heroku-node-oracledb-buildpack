@@ -13,14 +13,15 @@ VENDOR_DIR=$BUILD_DIR/vendor
 ORACLE_DIR=$VENDOR_DIR/oracle
 INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient_12_2
 PROFILE_D_DIR=$BUILD_DIR/.profile.d
+DRIVERS_DIR=$BUILD_DIR/drivers
 
 #linux x64
 #BASIC_FILENAME=instantclient-basic-linux-12.2.0.1.0.zip
 #SDK_FILENAME=instantclient-sdk-linux-12.2.0.1.0.zip
 
 #linux x64
-BASIC_FILENAME=drivers/instantclient-basic-linux.x64-12.2.0.1.0.zip
-SDK_FILENAME=drivers/instantclient-sdk-linux.x64-12.2.0.1.0.zip
+BASIC_FILENAME=$DRIVERS_DIR/instantclient-basic-linux.x64-12.2.0.1.0.zip
+SDK_FILENAME=$DRIVERS_DIR/instantclient-sdk-linux.x64-12.2.0.1.0.zip
 
 # macos
 #BASIC_FILENAME=instantclient-basic-macos.x64-12.1.0.2.0.zip
@@ -42,9 +43,11 @@ SDK_FILENAME=drivers/instantclient-sdk-linux.x64-12.2.0.1.0.zip
 
 mkdir -p $ORACLE_DIR
 indent "Extracting $BASIC_FILENAME..."
-unzip -qq $BUILD_DIR/$BASIC_FILENAME -d $ORACLE_DIR
+unzip -qq $BASIC_FILENAME -d $ORACLE_DIR
 indent "Extracting $SDK_FILENAME..."
-unzip -qq $BUILD_DIR/$SDK_FILENAME -d $ORACLE_DIR
+unzip -qq $SDK_FILENAME -d $ORACLE_DIR
+
+rm -r $DRIVERS_DIR
 
 export OCI_LIB_DIR=$INSTANTCLIENT_DIR
 export OCI_INC_DIR=$INSTANTCLIENT_DIR/sdk/include
