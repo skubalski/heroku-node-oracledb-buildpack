@@ -15,8 +15,6 @@ INSTANTCLIENT_DIR=$ORACLE_DIR/instantclient_12_2
 PROFILE_D_DIR=$BUILD_DIR/.profile.d
 DRIVERS_DIR=$BUILD_DIR/drivers
 
-#BASIC_FILENAME=$DRIVERS_DIR/instantclient-basic-linux.x64-12.2.0.1.0.zip
-#SDK_FILENAME=$DRIVERS_DIR/instantclient-sdk-linux.x64-12.2.0.1.0.zip
 BASIC_FILENAME=`cat $BUILD_DIR/oracle.json | jq ".basic.path"`
 SDK_FILENAME=`cat $BUILD_DIR/oracle.json | jq ".sdk.path"`
 
@@ -52,8 +50,8 @@ mkdir -p $PROFILE_D_DIR
 cat << EOF > $PROFILE_D_DIR/oracle.sh
 #!/usr/bin/env bash
 export LD_LIBRARY_PATH="$HOME/vendor/oracle/instantclient_12_2:$HOME/.apt/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
-export OCI_LIB_DIR="$HOME/vendor/oracle/instantclient_12_2"
-export OCI_INC_DIR="$HOME/vendor/oracle/instantclient_12_2/sdk/include"
+# export OCI_LIB_DIR="$HOME/vendor/oracle/instantclient_12_2"
+# export OCI_INC_DIR="$HOME/vendor/oracle/instantclient_12_2/sdk/include"
 EOF
 
 indent "Done."
