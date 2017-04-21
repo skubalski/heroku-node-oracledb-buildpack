@@ -22,9 +22,9 @@ SDK_FILENAME=`cat $BUILD_DIR/oracle.json | jq ".sdk.path"`
 
 mkdir -p $ORACLE_DIR
 indent "Extracting $BASIC_FILENAME..."
-unzip -qq $BASIC_FILENAME -d $ORACLE_DIR
+unzip -qq $BUILD_DIR/$BASIC_FILENAME -d $ORACLE_DIR
 indent "Extracting $SDK_FILENAME..."
-unzip -qq $SDK_FILENAME -d $ORACLE_DIR
+unzip -qq $BUILD_DIR/$SDK_FILENAME -d $ORACLE_DIR
 
 indent "Clearing drivers archives"
 rm -r $DRIVERS_DIR
