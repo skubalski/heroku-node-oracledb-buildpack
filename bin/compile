@@ -20,6 +20,9 @@ DRIVERS_DIR=$BUILD_DIR/drivers
 BASIC_FILENAME=`cat $BUILD_DIR/oracle.json | jq ".basic.path"`
 SDK_FILENAME=`cat $BUILD_DIR/oracle.json | jq ".sdk.path"`
 
+BASIC_FILENAME="${BASIC_FILENAME//\"}"
+SDK_FILENAME="${SDK_FILENAME//\"}"
+
 mkdir -p $ORACLE_DIR
 indent "Extracting $BASIC_FILENAME..."
 unzip -qq $BUILD_DIR/$BASIC_FILENAME -d $ORACLE_DIR
