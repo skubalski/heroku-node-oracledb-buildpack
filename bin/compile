@@ -17,9 +17,11 @@ DRIVERS_DIR=$BUILD_DIR/drivers
 
 BASIC_FILENAME=`cat $BUILD_DIR/oracle.json | jq ".basic.path"`
 SDK_FILENAME=`cat $BUILD_DIR/oracle.json | jq ".sdk.path"`
+TNS_PATH=`cat $BUILD_DIR/oracle.json | jq ".tns_path"`
 
 BASIC_FILENAME="${BASIC_FILENAME//\"}"
 SDK_FILENAME="${SDK_FILENAME//\"}"
+TNS_PATH="${TNS_PATH//\"}"
 
 mkdir -p $ORACLE_DIR
 indent "Extracting $BASIC_FILENAME..."
@@ -50,6 +52,7 @@ mkdir -p $PROFILE_D_DIR
 cat << EOF > $PROFILE_D_DIR/oracle.sh
 #!/usr/bin/env bash
 export LD_LIBRARY_PATH="$HOME/vendor/oracle/instantclient_12_2:$HOME/.apt/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
+export TNS_ADMIN="$HOME/$TNS_PATH"
 EOF
 
 indent "Done."
