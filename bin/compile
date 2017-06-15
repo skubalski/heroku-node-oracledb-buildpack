@@ -6,7 +6,7 @@ CACHE_DIR=$2
 ENV_DIR=$3
 
 indent() {
-    echo "     $*" || true
+    echo "       $*" || true
 }
 
 VENDOR_DIR=$BUILD_DIR/vendor
